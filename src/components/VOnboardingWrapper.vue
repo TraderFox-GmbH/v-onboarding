@@ -86,7 +86,7 @@ async function runSetup(step: StepEntity, index: number, direction: Direction) {
       setInteraction(document.body, 'none')
     }
     else{
-      setInteraction(document.body, 'auto')
+      restoreInteraction(document.body)
       console.warn(`[VOnboardingWrapper] Element not found for step ${index}:`, step.attachTo.element)
     } 
     setInteraction(element, 'auto')   
@@ -126,7 +126,9 @@ function goToStep(target: number | ((current: number) => number)): void {
 
   ;(async () => {
     if (newStep?.on?.beforeActivateStep) {
+      restoreInteraction(document.body)
       await newStep?.on?.beforeActivateStep?.(createHookOptions(newStep, newIndex, direction) as onBeforeStepOptions)
+      setInteraction(document.body, 'none')
     }
 
     currentIndex.value = newIndex
