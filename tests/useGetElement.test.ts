@@ -6,31 +6,31 @@ describe('useGetElement', () => {
     document.body.innerHTML = ''
   })
 
-  it('should find element by string selector', () => {
+  it('should find element by string selector', async () => {
     document.body.innerHTML = '<div id="test-element">Test</div>'
-    const element = useGetElement('#test-element')
+    const element = await useGetElement('#test-element')
     expect(element).not.toBeNull()
     expect(element?.id).toBe('test-element')
   })
 
-  it('should return null for non-existent selector', () => {
-    const element = useGetElement('#does-not-exist')
+  it('should return null for non-existent selector', async () => {
+    const element = await useGetElement('#does-not-exist')
     expect(element).toBeNull()
   })
 
-  it('should find element using function', () => {
+  it('should find element using function', async () => {
     document.body.innerHTML = '<div id="func-element">Test</div>'
-    const element = useGetElement(() => document.getElementById('func-element'))
+    const element = await useGetElement(() => document.getElementById('func-element'))
     expect(element).not.toBeNull()
     expect(element?.id).toBe('func-element')
   })
 
-  it('should return null when function returns null', () => {
-    const element = useGetElement(() => null)
+  it('should return null when function returns null', async () => {
+    const element = await useGetElement(() => null)
     expect(element).toBeNull()
   })
 
-  it('should find element inside shadow DOM', () => {
+  it('should find element inside shadow DOM', async () => {
     // Create a host element with shadow root
     const host = document.createElement('div')
     host.id = 'shadow-host'
@@ -43,17 +43,17 @@ describe('useGetElement', () => {
     shadowRoot.appendChild(shadowElement)
 
     // Should find element inside shadow DOM by ID
-    const foundById = useGetElement('#shadow-element')
+    const foundById = await useGetElement('#shadow-element')
     expect(foundById).not.toBeNull()
     expect(foundById?.id).toBe('shadow-element')
 
     // Should find element inside shadow DOM by class
-    const foundByClass = useGetElement('.inside-shadow')
+    const foundByClass = await useGetElement('.inside-shadow')
     expect(foundByClass).not.toBeNull()
     expect(foundByClass?.className).toBe('inside-shadow')
   })
 
-  it('should find element in nested shadow DOM', () => {
+  it('should find element in nested shadow DOM', async () => {
     // Create outer host
     const outerHost = document.createElement('div')
     document.body.appendChild(outerHost)
@@ -69,12 +69,12 @@ describe('useGetElement', () => {
     deepElement.id = 'deep-element'
     innerShadow.appendChild(deepElement)
 
-    const found = useGetElement('#deep-element')
+    const found = await useGetElement('#deep-element')
     expect(found).not.toBeNull()
     expect(found?.id).toBe('deep-element')
   })
 
-  it('should prefer regular DOM over shadow DOM', () => {
+  it('should prefer regular DOM over shadow DOM', async () => {
     // Create element in regular DOM
     const regularElement = document.createElement('div')
     regularElement.id = 'shared-id'
@@ -91,34 +91,34 @@ describe('useGetElement', () => {
     shadowRoot.appendChild(shadowElement)
 
     // Should find the regular DOM element first
-    const found = useGetElement('#shared-id')
+    const found = await useGetElement('#shared-id')
     expect(found?.className).toBe('regular')
   })
 
-  it('should find element from Vue ref with valid element', () => {
+  it('should find element from Vue ref with valid element', async () => {
     const element = document.createElement('div')
     element.id = 'ref-element'
     document.body.appendChild(element)
 
     const elementRef = ref<Element | null>(element)
-    const found = useGetElement(elementRef)
+    const found = await useGetElement(elementRef)
     expect(found).not.toBeNull()
     expect(found?.id).toBe('ref-element')
   })
 
-  it('should return null when Vue ref has null value', () => {
+  it('should return null when Vue ref has null value', async () => {
     const elementRef = ref<Element | null>(null)
-    const found = useGetElement(elementRef)
+    const found = await useGetElement(elementRef)
     expect(found).toBeNull()
   })
 
-  it('should return null when Vue ref has undefined value', () => {
+  it('should return null when Vue ref has undefined value', async () => {
     const elementRef = ref<Element | undefined>(undefined)
-    const found = useGetElement(elementRef)
+    const found = await useGetElement(elementRef)
     expect(found).toBeNull()
   })
 
-  it('should handle Vue ref that updates', () => {
+  it('should handle Vue ref that updates', async () => {
     const element1 = document.createElement('div')
     element1.id = 'element-1'
     document.body.appendChild(element1)
@@ -130,18 +130,18 @@ describe('useGetElement', () => {
     const elementRef = ref<Element | null>(element1)
 
     // First call should return element1
-    let found = useGetElement(elementRef)
+    let found = await useGetElement(elementRef)
     expect(found?.id).toBe('element-1')
 
     // Update ref to element2
     elementRef.value = element2
 
     // Second call should return element2
-    found = useGetElement(elementRef)
+    found = await useGetElement(elementRef)
     expect(found?.id).toBe('element-2')
   })
 
-  it('should extract $el from Vue component ref', () => {
+  it('should extract $el from Vue component ref', async () => {
     const element = document.createElement('div')
     element.id = 'component-root'
     document.body.appendChild(element)
@@ -154,19 +154,19 @@ describe('useGetElement', () => {
     }
 
     const componentRef = ref(componentInstance)
-    const found = useGetElement(componentRef)
+    const found = await useGetElement(componentRef)
     expect(found).not.toBeNull()
     expect(found?.id).toBe('component-root')
   })
 
-  it('should return null when component ref has no $el', () => {
+  it('should return null when component ref has no $el', async () => {
     const componentInstance = {
       $props: {},
       $emit: () => {}
     }
 
     const componentRef = ref(componentInstance)
-    const found = useGetElement(componentRef)
+    const found = await useGetElement(componentRef)
     expect(found).toBeNull()
   })
 })

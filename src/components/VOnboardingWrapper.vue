@@ -74,7 +74,7 @@ function createHookOptions(step: StepEntity, index: number, direction: Direction
 
 async function runSetup(step: StepEntity, index: number, direction: Direction) {
 
-  const element = useGetElement(step.attachTo.element) as HTMLElement
+  const element = await useGetElement(step.attachTo.element) as HTMLElement
   const options = getStepOptions(step)
 
   if (step.attachTo.classList?.length) {
@@ -96,7 +96,7 @@ async function runSetup(step: StepEntity, index: number, direction: Direction) {
 }
 
 function runCleanup(step: StepEntity, index: number, direction: Direction) {
-  const element = useGetElement(step.attachTo.element) as HTMLElement
+  const element = await useGetElement(step.attachTo.element) as HTMLElement
   const options = getStepOptions(step)
 
   if (step.attachTo.classList?.length) {
@@ -126,10 +126,6 @@ function goToStep(target: number | ((current: number) => number)): void {
 
   ;(async () => {
     if (oldStep) await runCleanup(oldStep, oldIndex, direction)
-
-    if (newStep?.on?.beforeActivateStep) {
-      await newStep?.on?.beforeActivateStep?.(createHookOptions(newStep, newIndex, direction) as onBeforeStepOptions)
-    }
 
     currentIndex.value = newIndex
     await nextTick();

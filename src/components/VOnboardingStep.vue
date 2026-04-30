@@ -110,7 +110,7 @@ const waitForScrollEnd = (element: Element, callback: () => void) => {
 
 const attachElement = async () => {
   await nextTick()
-  const element = useGetElement(step?.value?.attachTo?.element)
+  const element = await useGetElement(step?.value?.attachTo?.element)
   if (!element || !stepElement.value) return
 
   popperInstance?.destroy()
