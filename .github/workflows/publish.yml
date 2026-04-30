@@ -39,7 +39,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           npm version patch --no-git-tag-version
-          git add package.json bun.lock || true
+          git add package.json yarn.lock || true
           git commit -m "ci: bump version [skip ci]" || echo "No changes to commit"
           git push
 
@@ -71,7 +71,7 @@ jobs:
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
 
       - name: Publish to GitHub Packages
-        run: npm publish
+        run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           YARN_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

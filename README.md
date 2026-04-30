@@ -4,8 +4,6 @@
 
 A fully-typed, customizable onboarding component for Vue 3
 
-> Looking for React? Check out [r-onboarding](https://github.com/fatihsolhan/r-onboarding)
-
 [![Version](https://img.shields.io/npm/v/v-onboarding.svg?style=flat-square)](https://www.npmjs.com/package/v-onboarding)
 [![License](https://img.shields.io/npm/l/v-onboarding.svg?style=flat-square)](https://www.npmjs.com/package/v-onboarding)
 [![Downloads](https://img.shields.io/npm/dm/v-onboarding.svg?style=flat-square)](https://www.npmjs.com/package/v-onboarding)
@@ -32,13 +30,13 @@ A fully-typed, customizable onboarding component for Vue 3
 
 ```sh
 # npm
-npm install v-onboarding
+npm install @traderfox-gmbh/v-onboarding
 
 # yarn
-yarn add v-onboarding
+yarn add @traderfox-gmbh/v-onboarding
 
 # pnpm
-pnpm add v-onboarding
+pnpm add @traderfox-gmbh/v-onboarding
 ```
 
 ## Nuxt
@@ -59,8 +57,8 @@ Components, composables, and styles are auto-imported. See the [Nuxt guide](http
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VOnboardingWrapper, VOnboardingStep } from 'v-onboarding'
-import 'v-onboarding/dist/style.css'
+import { VOnboardingWrapper, VOnboardingStep } from '@traderfox-gmbh/v-onboarding'
+import '@traderfox-gmbh/v-onboarding/dist/style.css'
 
 const wrapper = ref(null)
 const steps = [
@@ -92,8 +90,8 @@ You can attach steps to elements using Vue template refs:
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VOnboardingWrapper } from 'v-onboarding'
-import 'v-onboarding/dist/style.css'
+import { VOnboardingWrapper } from '@traderfox-gmbh/v-onboarding'
+import '@traderfox-gmbh/v-onboarding/dist/style.css'
 
 const wrapper = ref(null)
 const buttonRef = ref(null)
