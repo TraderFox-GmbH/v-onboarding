@@ -1,10 +1,9 @@
-name: v-onboarding CI
+name: Build and Publish Package
 
 on:
   push:
-    branches: [ main, dev ]
-  pull_request:
-    branches: [ main ]
+    branches: 
+      - main
 
 jobs:
   test:
