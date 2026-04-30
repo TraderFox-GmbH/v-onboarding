@@ -1,5 +1,5 @@
 {
-  "name": "v-onboarding",
+  "name": "@traderfox-gmbh/v-onboarding",
   "version": "2.12.2",
   "description": "A fully-typed, customizable onboarding component for Vue 3",
   "publishConfig": {
