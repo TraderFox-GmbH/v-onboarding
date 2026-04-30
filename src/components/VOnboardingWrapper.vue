@@ -79,11 +79,11 @@ function runSetup(step: StepEntity, index: number, direction: Direction) {
   const element = useGetElement(step.attachTo.element) as HTMLElement
   const options = getStepOptions(step)
 
-  if (!element) {
-    console.warn(`[VOnboardingWrapper] Element not found for step ${index}:`, step.attachTo.element)
-    goToStep(i => i + (direction === Direction.FORWARD ? 1 : -1)) // Skip to next/previous step
-    return
-  }
+  // if (!element) {
+  //   console.warn(`[VOnboardingWrapper] Element not found for step ${index}:`, step.attachTo.element)
+  //   goToStep(i => i + (direction === Direction.FORWARD ? 1 : -1)) // Skip to next/previous step
+  //   return
+  // }
 
   if (step.attachTo.classList?.length) {
     element?.classList.add(...step.attachTo.classList)

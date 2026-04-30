@@ -63,17 +63,17 @@ jobs:
 
       
       - name: Install dependencies
-        run: npm install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       
       - name: Build package
-        run: npm run build
+        run: yarn build
 
       - name: Authenticate npm
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
 
       - name: Publish to GitHub Packages
-        run: npm publish
+        run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
