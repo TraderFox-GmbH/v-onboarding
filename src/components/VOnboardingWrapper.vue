@@ -14,7 +14,7 @@ import { defaultVOnboardingWrapperOptions } from '@/options/VOnboardingWrapper'
 import { OnboardingState, Direction, STATE_INJECT_KEY } from '@/types/internal'
 import type { StepEntity, onBeforeStepOptions, onAfterStepOptions, VOnboardingWrapperOptions } from '@/types/lib'
 import merge from 'lodash.merge'
-import { computed, provide, ref } from 'vue'
+import { computed, nextTick, provide, ref } from 'vue'
 
 const props = withDefaults(defineProps<{
   steps: StepEntity[]
@@ -127,6 +127,7 @@ function goToStep(target: number | ((current: number) => number)): void {
   ;(async () => {
     if (newStep?.on?.beforeActivateStep) {
       restoreInteraction(document.body)
+      await nextTick()
       await newStep?.on?.beforeActivateStep?.(createHookOptions(newStep, newIndex, direction) as onBeforeStepOptions)
       setInteraction(document.body, 'none')
     }
