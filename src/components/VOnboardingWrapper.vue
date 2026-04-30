@@ -125,16 +125,15 @@ function goToStep(target: number | ((current: number) => number)): void {
   }
 
   ;(async () => {
+    if (oldStep) await runCleanup(oldStep, oldIndex, direction)
+
     if (newStep?.on?.beforeActivateStep) {
-      restoreInteraction(document.body)
-      await nextTick()
       await newStep?.on?.beforeActivateStep?.(createHookOptions(newStep, newIndex, direction) as onBeforeStepOptions)
-      setInteraction(document.body, 'none')
     }
 
     currentIndex.value = newIndex
+    await nextTick();
 
-    if (oldStep) await runCleanup(oldStep, oldIndex, direction)
     if (newStep) await runSetup(newStep, newIndex, direction)
     
     showStep.value = true
