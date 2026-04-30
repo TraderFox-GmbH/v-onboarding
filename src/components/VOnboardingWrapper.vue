@@ -74,8 +74,6 @@ function createHookOptions(step: StepEntity, index: number, direction: Direction
 
 async function runSetup(step: StepEntity, index: number, direction: Direction) {
 
-  await step.on?.beforeActivateStep?.(createHookOptions(step, index, direction) as onBeforeStepOptions)
-
   const element = useGetElement(step.attachTo.element) as HTMLElement
   const options = getStepOptions(step)
 
@@ -126,11 +124,16 @@ function goToStep(target: number | ((current: number) => number)): void {
     showStep.value = false
   }
 
-  currentIndex.value = newIndex
-
   ;(async () => {
+    if (newStep?.on?.beforeActivateStep) {
+      await newStep?.on?.beforeActivateStep?.(createHookOptions(newStep, newIndex, direction) as onBeforeStepOptions)
+    }
+
+    currentIndex.value = newIndex
+
     if (oldStep) await runCleanup(oldStep, oldIndex, direction)
     if (newStep) await runSetup(newStep, newIndex, direction)
+    
     showStep.value = true
   })()
 }
