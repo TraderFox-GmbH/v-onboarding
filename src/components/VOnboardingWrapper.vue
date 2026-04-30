@@ -72,14 +72,12 @@ function createHookOptions(step: StepEntity, index: number, direction: Direction
   }
 }
 
-function runSetup(step: StepEntity, index: number, direction: Direction) {
+async function runSetup(step: StepEntity, index: number, direction: Direction) {
 
-  step.on?.beforeActivateStep?.(createHookOptions(step, index, direction) as onBeforeStepOptions)
+  await step.on?.beforeActivateStep?.(createHookOptions(step, index, direction) as onBeforeStepOptions)
 
   const element = useGetElement(step.attachTo.element) as HTMLElement
   const options = getStepOptions(step)
-
-  
 
   if (step.attachTo.classList?.length) {
     element?.classList.add(...step.attachTo.classList)
