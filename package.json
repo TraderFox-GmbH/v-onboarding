@@ -1,6 +1,6 @@
 {
   "name": "@traderfox-gmbh/v-onboarding",
-  "version": "2.12.7",
+  "version": "2.12.8",
   "description": "A fully-typed, customizable onboarding component for Vue 3",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
