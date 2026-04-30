@@ -95,7 +95,7 @@ async function runSetup(step: StepEntity, index: number, direction: Direction) {
   return step.on?.beforeStep?.(createHookOptions(step, index, direction) as onBeforeStepOptions)
 }
 
-function runCleanup(step: StepEntity, index: number, direction: Direction) {
+async function runCleanup(step: StepEntity, index: number, direction: Direction) {
   const element = await useGetElement(step.attachTo.element) as HTMLElement
   const options = getStepOptions(step)
 
@@ -124,12 +124,10 @@ function goToStep(target: number | ((current: number) => number)): void {
     showStep.value = false
   }
 
+  currentIndex.value = newIndex
+
   ;(async () => {
     if (oldStep) await runCleanup(oldStep, oldIndex, direction)
-
-    currentIndex.value = newIndex
-    await nextTick();
-
     if (newStep) await runSetup(newStep, newIndex, direction)
     
     showStep.value = true
