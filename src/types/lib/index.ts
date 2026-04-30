@@ -77,6 +77,7 @@ interface StepEntity {
     html?: boolean
   }
   on?: {
+    beforeActivateStep?: (options?: onBeforeStepOptions) => void | Promise<void>
     beforeStep?: (options?: onBeforeStepOptions) => void | Promise<void>
     afterStep?: (options?: onAfterStepOptions) => void | Promise<void>
   },
