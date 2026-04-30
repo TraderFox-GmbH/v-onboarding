@@ -2,11 +2,13 @@
   "name": "v-onboarding",
   "version": "2.12.2",
   "description": "A fully-typed, customizable onboarding component for Vue 3",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fatihsolhan/v-onboarding.git"
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
-  "author": "Fatih Solhan",
+  "repository": {
+    "url": "git://github.com/TraderFox-GmbH/v-onboarding.git"
+  },
+  "author": "Fatih Solhan, Simon Schmidt",
   "license": "MIT",
   "private": false,
   "keywords": [
@@ -85,9 +87,9 @@
   },
   "web-types": "web-types/web-types.json",
   "bugs": {
-    "url": "https://github.com/fatihsolhan/v-onboarding/issues"
+    "url": "https://github.com/TraderFox-GmbH/v-onboarding/issues"
   },
-  "homepage": "https://github.com/fatihsolhan/v-onboarding#readme",
+  "homepage": "https://github.com/TraderFox-GmbH/v-onboarding#readme",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
